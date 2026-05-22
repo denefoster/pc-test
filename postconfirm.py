@@ -54,6 +54,8 @@ async def main():
     )
 
     logging.getLogger('runner').setLevel(logging.DEBUG)
+    logging.getLogger('kilter').setLevel(logging.DEBUG)
+    logging.getLogger('kilter.service').setLevel(logging.DEBUG)
     logger = logging.getLogger(__name__)
     logger.setLevel(log_level)
     file_handler = TimedRotatingFileHandler(
