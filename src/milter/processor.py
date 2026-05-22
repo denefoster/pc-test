@@ -15,14 +15,6 @@ from src.sender import Sender, get_sender
 
 logger = logging.getLogger(__name__)
 
-logging.basicConfig(
-    level=logging.INFO,
-    style="{",
-    datefmt="%b %d %H:%M:%S",
-    format="{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]"
-)
-
-
 LINE_SEP = "\n"
 
 
@@ -192,7 +184,24 @@ async def extract_body(session: Session) -> list:
 async def extract_macros(session: Session) -> list:
     """
     Extracts the macros from the milter session.
-
+    {
+      'j': 'mx-slush.slush.ca',
+      '{daemon_name}': 'ORIGINATING',
+      '{daemon_addr}': '10.0.0.212',
+      'v': 'Postfix 3.10.8',
+      '_': '10-0-8-230.mailman.listserver.svc.cluster.local [10.0.8.230]',
+      '{tls_version}': 'TLSv1.3',
+      '{cipher}': 'TLS_AES_256_GCM_SHA384',
+      '{cipher_bits}': '256',
+      '{auth_type}': 'PLAIN',
+      '{auth_authen}': 'mailman@slush.ca',
+      '{mail_addr}': 'tootlist-bounces+dene=foster.kiwi.nz@lists.sys.slush.ca',
+      '{mail_host}': '[mailman.listserver.svc.cluster.local]:8024',
+      '{mail_mailer}': 'lmtp',
+      '{rcpt_addr}': 'dene@foster.kiwi.nz',
+      '{rcpt_host}': '205.233.128.5:25',
+      '{rcpt_mailer}': 'smtp',
+      'i': '6D6892E'}
     """
     return session.macros
 
@@ -268,7 +277,6 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
     (mail_subject, mail_headers) = await extract_headers(session)
 
     macros = await extract_macros(session)
-    logger.info(macros)
 
     cleaned_subject = mail_subject.replace("\n", "").replace("\t", " ")
 
