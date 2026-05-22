@@ -14,8 +14,8 @@ from src.challenge import get_challenge
 from src.sender import Sender, get_sender
 
 logger = logging.getLogger(__name__)
+logger.propagate = False
 
-logging.info('test')
 LINE_SEP = "\n"
 
 
