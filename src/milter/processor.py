@@ -15,6 +15,7 @@ from src.sender import Sender, get_sender
 
 logger = logging.getLogger(__name__)
 
+logging.info('test')
 LINE_SEP = "\n"
 
 
@@ -277,6 +278,7 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
     (mail_subject, mail_headers) = await extract_headers(session)
 
     macros = await extract_macros(session)
+    logger.info(macros)
 
     cleaned_subject = mail_subject.replace("\n", "").replace("\t", " ")
 
