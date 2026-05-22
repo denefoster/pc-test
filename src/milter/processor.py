@@ -259,7 +259,6 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
     """
 
     # First we set up our Sender
-    logger.info('handling')
     mail_from = cleanup_mail(await session.envelope_from())
     sender = get_sender(mail_from)
     remail_sender = services["app_config"].get("remail_sender")
@@ -278,7 +277,6 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
     (mail_subject, mail_headers) = await extract_headers(session)
 
     macros = await extract_macros(session)
-    logger.info(macros)
 
     cleaned_subject = mail_subject.replace("\n", "").replace("\t", " ")
 
@@ -294,6 +292,7 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
         return Accept()
     if challenge_recipients and should_drop:
         logger.debug("Message flagged for challenge but also matched drop conditions")
+        logger.info(f"{macros['i']} outbound drop {sender} - message matches droplist")
         return Discard()
 
     elif challenge_recipients and not is_challenge_response:
@@ -382,6 +381,6 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
         return Discard()
 
     # Anything else is just accepted
-    logger.info(f"{macros['i']} inbound allow - no challenge required")
+    logger.info(f"{macros['i']} either allow - no challenge required")
     return Accept()
 
