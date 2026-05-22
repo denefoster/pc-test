@@ -268,6 +268,7 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
     (mail_subject, mail_headers) = await extract_headers(session)
 
     macros = await extract_macros(session)
+    logger.info(macros)
 
     cleaned_subject = mail_subject.replace("\n", "").replace("\t", " ")
 
