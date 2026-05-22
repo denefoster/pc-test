@@ -25,13 +25,12 @@ async def main():
     app_config = config.Config(args.config_file)
 
     # Set up the root logger
-    logging.basicConfig(level=app_config.get('log.level', logging.WARNING))
     logging.basicConfig(
-    level=app_config.get('log.level', logging.WARNING),
-    style="{",
-    datefmt="%b %d %H:%M:%S",
-    format="{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]"
-)
+        level=app_config.get('log.level', logging.INFO),
+        style="{",
+        datefmt="%b %d %H:%M:%S",
+        format="{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]"
+    )
 
 
     # Set up a services registry
