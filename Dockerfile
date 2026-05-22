@@ -19,6 +19,8 @@ ADD  . /app
 WORKDIR /app
 
 RUN pip install -r requirements.txt \
+    && mkdir /var/log/postconfirm \
+    && chown postconfirm:postconfirm /var/log/postconfirm \
     && adduser postconfirm
 
 USER postconfirm

@@ -31,7 +31,7 @@ async def main():
     log_rotate_period = app_config.get('log.rotate_period', 'D')
     log_rotate_interval = app_config.get('log.rotate_interval', 1)
     log_rotate_keep = app_config.get('log.rotate_keep', 5)
-    log_filename = app_config.get('log.filename', '/var/log/postconfirm.log')
+    log_filename = app_config.get('log.filename', '/var/log/postconfirm/postconfirm.log')
     log_level = app_config.get('log.level', logging.INFO)
 
     # og
