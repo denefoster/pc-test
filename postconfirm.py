@@ -26,11 +26,11 @@ async def main():
     # Load the configuration
     app_config = config.Config(args.config_file)
 
-    log_line_format = app_config.get('log.format', '{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]')
-    log_date_format = app_config.get('log.date_format', '%b %d %H:%M:%S')
-    log_rotate_period = app_config.get('log.rotate_period', 'D')
-    log_rotate_interval = app_config.get('log.rotate_interval', 1)
-    log_rotate_keep = app_config.get('log.rotate_keep', 5)
+    log_line_format = "{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]"
+    log_date_format = "%b %d %H:%M:%S"
+    log_rotate_period = "D"
+    log_rotate_interval = 1
+    log_rotate_keep = 5
     log_filename = app_config.get('log.filename', '/var/log/postconfirm/postconfirm.log')
     log_level = app_config.get('log.level', logging.INFO)
 
