@@ -29,7 +29,7 @@ def recipient_requires_challenge(recipients: list) -> Union[False, list]:
     challengeable = filter(lambda challenge: challenge.get_action() == "challenge", challenges)
     to_challenge = list([challenge.get_email() for challenge in challengeable])
 
-    logger.debug(f"challenges {challenge}")
+    logger.debug(f"challenges {challenges}")
 
     if len(to_challenge):
         return to_challenge
