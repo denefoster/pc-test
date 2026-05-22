@@ -53,7 +53,7 @@ async def main():
         format=log_line_format
     )
 
-    logger = logging.getLogger()
+    logger = logging.getLogger(__name__)
     logger.setLevel(log_level)
     file_handler = TimedRotatingFileHandler(
         log_filename, when=log_rotate_period, interval=log_rotate_interval,
