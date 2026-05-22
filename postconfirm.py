@@ -67,8 +67,12 @@ async def main():
     )
 
     file_handler.setFormatter(file_formatter)
-
     logger.addHandler(file_handler)
+
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(file_formatter)
+    logger.addHandler(console_handler)
+
     logger = logging.LoggerAdapter(logger)
 
     # Set up a services registry
