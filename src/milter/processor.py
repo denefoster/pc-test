@@ -14,7 +14,6 @@ from src.challenge import get_challenge
 from src.sender import Sender, get_sender
 
 logger = logging.getLogger(__name__)
-logger.propagate = False
 
 LINE_SEP = "\n"
 
@@ -260,6 +259,7 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
     """
 
     # First we set up our Sender
+    logger.info('handling')
     mail_from = cleanup_mail(await session.envelope_from())
     sender = get_sender(mail_from)
     remail_sender = services["app_config"].get("remail_sender")
