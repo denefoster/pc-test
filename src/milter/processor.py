@@ -189,6 +189,12 @@ async def extract_body(session: Session) -> list:
 
     return mail_body
 
+async def extract_macros(session: Session) -> list:
+    """
+    Extracts the macros from the milter session.
+
+    """
+    return session.macros
 
 def extract_reference(mail_headers: list[dict]) -> str:
     message_id = next((header[1] for header in mail_headers if header[0].lower() == "message-id"), None)
@@ -260,6 +266,8 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
     # subject, which means collecting all the headers.
 
     (mail_subject, mail_headers) = await extract_headers(session)
+
+    macros = await extract_macros(session)
 
     cleaned_subject = mail_subject.replace("\n", "").replace("\t", " ")
 
