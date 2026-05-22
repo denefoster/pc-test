@@ -1,5 +1,7 @@
 import argparse
 import logging
+from logging.handlers import TimedRotatingFileHandler
+
 
 from anyio import create_tcp_listener, run
 import config
@@ -24,6 +26,14 @@ async def main():
     # Load the configuration
     app_config = config.Config(args.config_file)
 
+    log_line_format = app_config.get('log.format', '{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]')
+    log_date_format = app_config.get('log.date_format', '%b %d %H:%M:%S')
+    log_rotate_period = app_config.get('log.rotate_period', 'D')
+    log_rotate_interval = app_config.get('log.rotate_interval', 1)
+    log_rotate_keep = app_config.get('log.rotate_keep', 5)
+    log_filename = app_config.get('log.filename', '/var/log/postconfirm.log')
+    log_level = app_config.get('log.level', logging.INFO)
+
     # og
     # Set up the root logger
     #logger = logging.getLogger()
@@ -37,28 +47,29 @@ async def main():
 
     # new
     logging.basicConfig(
-        level=app_config.get('log.level', logging.INFO),
+        level=log_level,
         style="{",
-        datefmt="%b %d %H:%M:%S",
-        format="{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]"
+        datefmt=log_date_format,
+        format=log_line_format
     )
 
     logger = logging.getLogger()
     logger.setLevel(log_level)
     file_handler = TimedRotatingFileHandler(
-        '/var/log/postconfirm.log', when=logging_rotate_period, interval=1, backupCount=5
+        log_filename, when=log_rotate_period, interval=log_rotate_interval,
+        backupCount=log_rotate_keep
     )
 
     file_formatter = logging.Formatter(
         style="{",
-        datefmt="%b %d %H:%M:%S",
-        fmt="{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]"
+        datefmt=log_date_format,
+        fmt=log_line_format
     )
 
     file_handler.setFormatter(file_formatter)
 
     logger.addHandler(file_handler)
-    logging = logging.LoggerAdapter(logger)
+    logger = logging.LoggerAdapter(logger)
 
     # Set up a services registry
     services["app_config"] = app_config
