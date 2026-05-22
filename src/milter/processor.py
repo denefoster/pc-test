@@ -16,7 +16,7 @@ from src.sender import Sender, get_sender
 logger = logging.getLogger(__name__)
 
 logging.basicConfig(
-    level=app_config.get('log.level', logging.INFO),
+    level=logging.INFO,
     style="{",
     datefmt="%b %d %H:%M:%S",
     format="{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]"
