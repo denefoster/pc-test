@@ -58,7 +58,7 @@ async def main():
     file_handler.setFormatter(file_formatter)
     logger.addHandler(file_handler)
 
-    logging = logging.LoggerAdapter(logger)
+    #logger = logging.LoggerAdapter(logger)
 
     # Set up a services registry
     services["app_config"] = app_config
