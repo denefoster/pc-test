@@ -34,18 +34,6 @@ async def main():
     log_filename = app_config.get('log.filename', '/var/log/postconfirm/postconfirm.log')
     log_level = app_config.get('log.level', logging.INFO)
 
-    # og
-    # Set up the root logger
-    #logger = logging.getLogger()
-
-    #logging.basicConfig(
-    #    level=app_config.get('log.level', logging.INFO),
-    #    style="{",
-    #    datefmt="%b %d %H:%M:%S",
-    #    format="{asctime} postconfirm/postconfirm[{process}]: {message} [{filename}:{lineno}]"
-    #)
-
-    # new
     logging.basicConfig(
         level=log_level,
         style="{",
@@ -70,7 +58,7 @@ async def main():
     file_handler.setFormatter(file_formatter)
     logger.addHandler(file_handler)
 
-    logger = logging.LoggerAdapter(logger)
+    logging = logging.LoggerAdapter(logger)
 
     # Set up a services registry
     services["app_config"] = app_config
