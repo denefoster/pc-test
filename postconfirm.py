@@ -42,8 +42,8 @@ async def main():
         level=log_level, style="{", datefmt=log_date_format, format=log_line_format
     )
 
-    #logging.getLogger("kilter.service").disabled = True
-    logging.getLogger('kilter.service').setLevel(logging.DEBUG)
+    logging.getLogger("kilter.service").disabled = True
+    #logging.getLogger('kilter.service').setLevel(logging.DEBUG)
 
     logger = logging.getLogger()
     logger.setLevel(log_level)
