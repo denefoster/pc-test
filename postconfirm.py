@@ -41,7 +41,7 @@ async def main():
         format=log_line_format
     )
 
-    logging.getLogger("kilter.service").disabled = True
+    #logging.getLogger("kilter.service").disabled = True
     logger = logging.getLogger()
     logger.setLevel(log_level)
     file_handler = TimedRotatingFileHandler(
