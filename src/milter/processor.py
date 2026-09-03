@@ -322,7 +322,7 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
         sender.stash_message(mail_as_text, mail_recipients, challenge_reference)
 
         actions_to_challenge = ["unknown", "expired"]
-        if services["app_config"].get("resend_confirmation", True):
+        if services["app_config"].get("resend_confirmation", False):
             actions_to_challenge.append("confirm")
 
         if action in actions_to_challenge:

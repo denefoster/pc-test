@@ -43,7 +43,6 @@ async def main():
     )
 
     logging.getLogger("kilter.service").disabled = True
-    #logging.getLogger('kilter.service').setLevel(logging.DEBUG)
 
     logger = logging.getLogger()
     logger.setLevel(log_level)
