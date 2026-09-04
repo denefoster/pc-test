@@ -306,7 +306,7 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
         elif action == "discard":
             logger.info(f"{macros['i']} inbound discard {mail_from} - message is flagged, sender is marked for discarding")
             return Discard()
-        elif action == "challenge":
+        elif action == "confirm":
             logger.info(f"{macros['i']} inbound challenge {mail_from} - message is flagged, sender already has challenge inflight")
 
         if sender.is_never_allowed():
