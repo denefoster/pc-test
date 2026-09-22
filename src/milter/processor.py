@@ -289,9 +289,6 @@ async def handle(session: Session) -> Union[Accept, Reject, Discard]:
     if mail_from == remail_sender:
         logger.info(f"{macros['i']} outbound accept {mail_from} - message is outbound challege, accept")
         return Accept()
-    if challenge_recipients and should_drop:
-        logger.info(f"{macros['i']} outbound drop {mail_from} - message matches droplist")
-        return Discard()
 
     elif challenge_recipients and not is_challenge_response:
         # Process the sender
