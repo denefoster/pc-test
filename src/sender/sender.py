@@ -33,7 +33,7 @@ class Sender:
         self.email = email
         # strip BATV
         if "=" in self.email and re.search("^[A-Za-z0-9-]+=[A-Za-z0-9-]+=[^=]+@", self.email):
-            logger.info("BATV stripped from %(email)s", {"email": self.email})
+            logger.debug("BATV stripped from %(email)s", {"email": self.email})
             self.email = re.sub("^[A-Za-z0-9-]+=[A-Za-z0-9-]+=", "", self.email)
 
         self.references = None
@@ -63,7 +63,7 @@ class Sender:
 
         logger.debug("Action record for %(email)s: %(action)s", {"email": self.email, "action": action_data})
 
-        if not action_data:
+        if not action_data or action_data[0] == "unknown":
             patterns = self.handler.get_patterns()
 
             for pattern, action, ref in patterns:
